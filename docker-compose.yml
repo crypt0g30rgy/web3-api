@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:6
+    container_name: eth-mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  api:
+    build: .
+    container_name: eth-wallet-api
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - MONGO_URI=mongodb://mongo:27017/eth_wallets
+      - INFURA_PROJECT_ID=${INFURA_PROJECT_ID}
+      - FUNDER_PRIVATE_KEY=${FUNDER_PRIVATE_KEY}
+      - FUND_AMOUNT=0.01
+      - NETWORK=goerli
+    depends_on:
+      - mongo
+
+volumes:
+  mongo-data:

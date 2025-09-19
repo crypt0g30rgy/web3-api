@@ -1,0 +1,73 @@
+openapi: 3.0.0
+info:
+  title: Ethereum Wallet API
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+paths:
+  /wallet:
+    post:
+      summary: Create a new Ethereum wallet
+      responses:
+        '200':
+          description: Wallet created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  address:
+                    type: string
+                  txHash:
+                    type: string
+  /wallet/{address}/balance:
+    get:
+      summary: Get wallet balance
+      parameters:
+        - name: address
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Wallet balance
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  address:
+                    type: string
+                  balance:
+                    type: string
+  /wallet/send:
+    post:
+      summary: Send ETH from stored wallet
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                fromAddress:
+                  type: string
+                toAddress:
+                  type: string
+                amount:
+                  type: string
+      responses:
+        '200':
+          description: Transaction successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  txHash:
+                    type: string
