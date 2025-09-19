@@ -6,6 +6,7 @@ const swaggerUi = require('swagger-ui-express');
 const yaml = require('js-yaml');
 const fs = require('fs');
 const walletRoutes = require('./routes/wallets');
+const authRoutes = require('./routes/auth');
 
 require('dotenv').config();
 
@@ -35,6 +36,7 @@ const swaggerDocument = yaml.load(fs.readFileSync('./swagger.yaml', 'utf8'));
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Routes
+app.use('/auth', authRoutes);
 app.use('/wallet', walletRoutes);
 
 // Start server
