@@ -5,9 +5,19 @@ const bodyParser = require('body-parser');
 const swaggerUi = require('swagger-ui-express');
 const yaml = require('js-yaml');
 const fs = require('fs');
-const walletRoutes = require('./routes/wallet');
+const walletRoutes = require('./routes/wallets');
 
 require('dotenv').config();
+
+console.log('Environment Variables:', {
+    PORT: process.env.PORT,
+    MONGO_URI: process.env.MONGO_URI,
+    INFURA_PROJECT_ID: process.env.INFURA_PROJECT_ID,
+    FUNDER_PRIVATE_KEY: process.env.FUNDER_PRIVATE_KEY,
+    FUND_AMOUNT: process.env.FUND_AMOUNT,
+    NETWORK: process.env.NETWORK,
+    ENCRYPTION_KEY: process.env.ENCRYPTION_KEY ? 'set' : 'not set'
+});
 
 const app = express();
 app.use(cors());

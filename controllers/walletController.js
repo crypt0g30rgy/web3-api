@@ -1,10 +1,15 @@
 const { ethers } = require('ethers');
-const WalletModel = require('../models/Wallet');
-require('dotenv').config();
+const WalletModel = require('../models/wallet');
 
-// Ethereum provider
-const provider = new ethers.providers.InfuraProvider(process.env.NETWORK, process.env.INFURA_PROJECT_ID);
-const funder = new ethers.Wallet(process.env.FUNDER_PRIVATE_KEY, provider);
+const provider = new ethers.InfuraProvider(
+  process.env.NETWORK, 
+  process.env.INFURA_PROJECT_ID
+);
+
+const funder = new ethers.Wallet(
+    process.env.FUNDER_PRIVATE_KEY, 
+    provider
+);
 const FUND_AMOUNT = process.env.FUND_AMOUNT || '0.01';
 
 exports.createWallet = async (req, res) => {
